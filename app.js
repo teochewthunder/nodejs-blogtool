@@ -18,6 +18,7 @@ app.get("/", (req, res)=> {
 });
 
 app.post("/process", (req, res)=> {
+	//console.log(req.body);
 	const changes = [
 		{
 			"find": "<",
@@ -53,10 +54,11 @@ app.post("/process", (req, res)=> {
 
 	for (let i = 0; i < changes.length; i++)
 	{
-		processedText.replaceAll(changes[i].find, changes[i].replace);
+		processedText = processedText.replaceAll(changes[i].find, changes[i].replace);
+		console.log("Replaced", changes[i].find, changes[i].replace);
 	}
 
-	res.render("200", { textContent: processedText, message: "Text processed." });
+	res.render("form", { textContent: processedText, message: "Text processed." });
 });
 
 app.use((req, res, next)=> {
