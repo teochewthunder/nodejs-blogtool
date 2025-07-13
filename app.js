@@ -8,11 +8,13 @@ app.engine("handlebars", handlebars.engine);
 app.set("view engine", "handlebars");
 app.set("port", process.env.PORT || 3000);
 
-app.use(require("body-parser")());
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+
 app.use(express.static("assets"));
 
 app.get("/", (req, res)=> {
-	res.render("form", { error: "", message: "Paste your text in the bo provied, then hit the PROCESS button." });
+	res.render("form", { textContent: "", message: "Paste your text in the bo provied, then hit the PROCESS button." });
 });
 
 app.post("/process", (req, res)=> {
@@ -47,7 +49,14 @@ app.post("/process", (req, res)=> {
 		}												
 	];
 
-	//use req.body
+	let processedText = req.body.txtTextToProcess;
+
+	for (let i = 0; i < changes.length; i++)
+	{
+		processedText.replaceAll(changes[i].find, changes[i].replace);
+	}
+
+	res.render("200", { textContent: processedText, message: "Text processed." });
 });
 
 app.use((req, res, next)=> {
