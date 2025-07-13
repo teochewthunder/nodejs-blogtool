@@ -16,6 +16,37 @@ app.get("/", (req, res)=> {
 });
 
 app.post("/process", (req, res)=> {
+	const changes = [
+		{
+			"find": "<",
+			"replace": "&lt;"
+		},
+		{
+			"find": ">",
+			"replace": "&gt;"
+		},
+		{
+			"find": "  ",
+			"replace": "&nbsp;&nbsp;"
+		},
+		{
+			"find": "\r\n",
+			"replace": "<br />"
+		},
+		{
+			"find": "c---",
+			"replace": '<div class="post_box code">'
+		},
+		{
+			"find": "r---",
+			"replace": '<div class="post_box result">'
+		},
+		{
+			"find": "---d",
+			"replace": "</div>"
+		}												
+	];
+
 	//use req.body
 });
 

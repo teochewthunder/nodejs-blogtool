@@ -1,0 +1,21 @@
+.content
+{
+	width: 90%;
+	height: 500px;
+	margin: 10px auto 0 auto;
+}
+
+textarea
+{
+	width: 90%;
+	height: 500px;
+	margin: 10px auto 0 auto;
+}
+
+button
+{
+	width: 10em;
+	height: 1.5em;
+	display: inline-block;
+	float: right;
+}
