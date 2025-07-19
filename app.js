@@ -39,7 +39,6 @@ app.get("/", (req, res)=> {
 
 app.post("/process", (req, res)=> {
 	let processedText = req.body.txtTextToProcess;
-	console.log(changes);
 
 	for (let i = 0; i < changes.length; i++)
 	{
