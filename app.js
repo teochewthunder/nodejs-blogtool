@@ -13,49 +13,29 @@ app.use(express.urlencoded({ extended: true }));
 
 app.use(express.static("assets"));
 
+const fs = require("fs");
+const csv = require("csv-parser");
+
+const changes = [];
+
+fs.createReadStream("assets/csv/inputs.csv")
+  .pipe(csv())
+  .on("data", (row) => {
+  	console.log(row);
+    changes.push(row);
+ });	
+
 app.get("/", (req, res)=> {
 	res.render("form", { textContent: "", message: "Paste your text in the bo provied, then hit the PROCESS button." });
 });
 
 app.post("/process", (req, res)=> {
-	//console.log(req.body);
-	const changes = [
-		{
-			"find": "<",
-			"replace": "&lt;"
-		},
-		{
-			"find": ">",
-			"replace": "&gt;"
-		},
-		{
-			"find": "  ",
-			"replace": "&nbsp;&nbsp;"
-		},
-		{
-			"find": "\r\n",
-			"replace": "<br />"
-		},
-		{
-			"find": "c---",
-			"replace": '<div class="post_box code">'
-		},
-		{
-			"find": "r---",
-			"replace": '<div class="post_box result">'
-		},
-		{
-			"find": "---d",
-			"replace": "</div>"
-		}												
-	];
-
 	let processedText = req.body.txtTextToProcess;
+	console.log(changes);
 
 	for (let i = 0; i < changes.length; i++)
 	{
 		processedText = processedText.replaceAll(changes[i].find, changes[i].replace);
-		console.log("Replaced", changes[i].find, changes[i].replace);
 	}
 
 	res.render("form", { textContent: processedText, message: "Text processed." });

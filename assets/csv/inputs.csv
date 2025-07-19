@@ -1,7 +1,7 @@
 find,replace
 "<","&lt;"
 ">","&gt;"
-"  ","&nbsp;&nbsp;"
+"\t","&nbsp;&nbsp;"
 "\r\n","<br />"
 "c---","<div class=""post_box code"">"
 "r---","<div class=""post_box result"">"
