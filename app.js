@@ -21,12 +21,20 @@ const changes = [];
 fs.createReadStream("assets/csv/inputs.csv")
   .pipe(csv())
   .on("data", (row) => {
-  	console.log(row);
+  	row.find = unescapeSpecialChars(row.find);
     changes.push(row);
- });	
+ });
+
+ function unescapeSpecialChars(str) {
+  return str
+    .replace(/\\t/g, '\t')
+    .replace(/\\r\\n/g, '\r\n')
+    .replace(/\\n/g, '\n')
+    .replace(/\\r/g, '\r');
+}	
 
 app.get("/", (req, res)=> {
-	res.render("form", { textContent: "", message: "Paste your text in the bo provied, then hit the PROCESS button." });
+	res.render("form", { textContent: "", message: "Paste your text in the box provided, then hit the PROCESS button." });
 });
 
 app.post("/process", (req, res)=> {
