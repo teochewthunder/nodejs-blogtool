@@ -16,16 +16,33 @@ app.use(express.static("assets"));
 const fs = require("fs");
 const csv = require("csv-parser");
 
-const changes = [];
+let changes = [];
 
-fs.createReadStream("assets/csv/inputs.csv")
-  .pipe(csv())
-  .on("data", (row) => {
-  	row.find = unescapeSpecialChars(row.find);
-    changes.push(row);
- });
+async function loadFile(filePath) {
+  return new Promise((resolve, reject) => {
+    const results = [];
 
- function unescapeSpecialChars(str) {
+    fs.createReadStream(filePath)
+      .pipe(csv())
+	  .on("data", (row) => {
+	  	row.find = unescapeSpecialChars(row.find);
+	    results.push(row);
+	  })
+      .on('end', () => resolve(results))
+      .on('error', (err) => reject(err));
+  });
+}
+
+async function loadChanges() {
+  try {
+	changes = await loadFile("assets/csv/inputs.csv");
+  } catch (err) {
+  	throw new Error("Error reading CSV.");
+    console.error("Error reading CSV:", err);
+  }
+}
+
+function unescapeSpecialChars(str) {
   return str
     .replace(/\\t/g, '\t')
     .replace(/\\r\\n/g, '\r\n')
@@ -37,8 +54,9 @@ app.get("/", (req, res)=> {
 	res.render("form", { textContent: "", message: "Paste your text in the box provided, then hit the PROCESS button." });
 });
 
-app.post("/process", (req, res)=> {
+app.post("/process", async (req, res)=> {
 	let processedText = req.body.txtTextToProcess;
+	await loadChanges();
 
 	for (let i = 0; i < changes.length; i++)
 	{
