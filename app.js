@@ -51,7 +51,7 @@ function unescapeSpecialChars(str) {
 }	
 
 app.get("/", (req, res)=> {
-	res.render("form", { textContent: "", message: "Paste your text in the box provided, then hit the PROCESS button." });
+	res.render("form", { textContent: "", btnCLass: "", message: "Paste your text in the box provided, then hit the PROCESS button." });
 });
 
 app.post("/process", async (req, res)=> {
@@ -63,7 +63,7 @@ app.post("/process", async (req, res)=> {
 		processedText = processedText.replaceAll(changes[i].find, changes[i].replace);
 	}
 
-	res.render("form", { textContent: processedText, message: "Text processed." });
+	res.render("form", { textContent: processedText, btnClass: "hidden", message: "Text processed." });
 });
 
 app.use((req, res, next)=> {

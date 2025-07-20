@@ -19,3 +19,8 @@ button
 	display: inline-block;
 	float: right;
 }
+
+.hidden
+{
+	display: none;
+}
