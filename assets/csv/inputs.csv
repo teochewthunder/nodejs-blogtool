@@ -2,7 +2,7 @@ find,replace
 "<","&lt;"
 ">","&gt;"
 "\t","&nbsp;&nbsp;"
-"\r\n","<br />"
 "c---","<div class=""post_box code"">"
 "r---","<div class=""post_box result"">"
 "e---","</div>"
+"\r\n","<br />"
