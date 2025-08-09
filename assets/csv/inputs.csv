@@ -6,5 +6,5 @@ find,replace
 "c---<br />","<div class=""post_box code"">"
 "r---<br />","<div class=""post_box result"">"
 "i---<br />","<div class=""post_box info"">"
-"s---<br />","<div class=""signature"">"
+"s---<br />","<div class=""signaturett"">"
 "<br />e---","</div>"
