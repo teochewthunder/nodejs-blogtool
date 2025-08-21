@@ -28,8 +28,8 @@ async function loadFile(filePath) {
 	  	row.find = unescapeSpecialChars(row.find);
 	    results.push(row);
 	  })
-      .on('end', () => resolve(results))
-      .on('error', (err) => reject(err));
+      .on("end", () => resolve(results))
+      .on("error", (err) => reject(err));
   });
 }
 
@@ -44,10 +44,10 @@ async function loadChanges() {
 
 function unescapeSpecialChars(str) {
   return str
-    .replace(/\\t/g, '\t')
-    .replace(/\\r\\n/g, '\r\n')
-    .replace(/\\n/g, '\n')
-    .replace(/\\r/g, '\r');
+    .replace(/\\t/g, "\t")
+    .replace(/\\r\\n/g, "\r\n")
+    .replace(/\\n/g, "\n")
+    .replace(/\\r/g, "\r");
 }	
 
 app.get("/", (req, res)=> {
